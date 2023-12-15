@@ -151,5 +151,4 @@ function deleteProduct(event) {
     
 }
 loadProducts()
-createROW()
-localStorage.clear();
+createROW();
