@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="../CSS/style.css">
+    <link rel="stylesheet" href="../css/category.css">
+    <script type="module" src="../js/cetagory.js"></script>
 </head>
 <body>
     <header>
@@ -35,8 +36,33 @@
         </ul>
       </nav>
       <main>
-        <!-- ----todo----- -->
-        <h1>Todo</h1>
+        <div class="action">
+          <div class="createCetagory">
+            <div class="buttom">
+              <button>click❤️ </button>
+
+            </div>
+            <input type="text" placeholder="search Cetagory">
+          </div>
+          <div class="diplay">
+              <h1>past your code</h1>
+          </div>
+        </div>
+        <div class="cardCreate" style="display: none;">
+          <div class="title">
+            <h2>Create Cetagory</h2>
+          </div>
+          <div class="iput">
+            <label for="id">discript</label>
+            <input type="text" placeholder="Old name ">
+            <label for="Cetagory" >cetagory</label>
+            <input type="text" placeholder="Old description">
+          </div>
+          <div class="save">
+            <button>sumite</button>
+            <button>back</button>
+          </div>
+        </div>
       </main>
 </body>
 </html>
