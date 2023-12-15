@@ -152,4 +152,4 @@ function deleteProduct(event) {
 }
 loadProducts()
 createROW()
-localStorage.clear();
+// localStorage.clear();
