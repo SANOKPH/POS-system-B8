@@ -88,14 +88,15 @@ main{
   margin: 0;
   background-color: rgb(3, 178, 178);
   height: 50px;
-  width: 100px;
+  width: 200px;
 }
 .createCetagory input{
   width: 400px;
 }
 .diplay{
   flex: 3;
-  background-color: aqua;
+  height: 82vh;
+  /* background-color: aqua; */
 }
 .displaycetagory{
   height: 50%;
@@ -142,3 +143,26 @@ button{
   border: none;
   border-radius: 10px;
 }
+/* table theat */
+
+.containertb{
+  width: 85%;
+  margin: 50px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+.image {
+  height: 25px;
+  margin-left: 15px;
+}
+
+
+
+
