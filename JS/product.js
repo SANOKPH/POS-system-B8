@@ -146,6 +146,27 @@ function deleteProduct(event) {
     }
     
 }
+// ======================search product=================================
+function searchProduct() {
+    let search = searchDataInput.value.toLowerCase();
+    for (const product of products) {
+        let productName = product.name.toLowerCase();
+        let productCategory = product.categroy.toLowerCase();
+        if (productName.includes(search) || productCategory.includes(search)) {
+            document.querySelector(`tr[data-id="${product.id}"]`).style.display =
+                "table-row";
+        } else {
+            document.querySelector(`tr[data-id="${product.id}"]`).style.display =
+                "none";
+        }
+        saveProducts();
+    }
+    
+}
+
+let searchDataInput = document.querySelector(".input-search");
+searchDataInput.addEventListener("keyup", searchProduct);
+
 loadProducts()
 createROW()
 
