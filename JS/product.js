@@ -71,7 +71,7 @@ function createROW() {
     for (const tr of document.querySelectorAll('tbody tr')) {
         tr.remove();
     }
-    console.log(products);
+    
     for (const product of products) {
         let tr = document.createElement('tr')
         let tdId = document.createElement('td');
@@ -119,7 +119,7 @@ function createROW() {
 }
 let quantities = document.querySelectorAll('input');
 function getQuantities(event) {
-    // TODO
+    
     let qty = event.target.value
     
     let price = event.target.parentElement.nextElementSibling.textContent.replace('$', "");
