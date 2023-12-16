@@ -1,65 +1,9 @@
 let tbody = document.querySelector('tbody');
 let show_result = document.querySelector('.show_result')
 let Income = document.querySelector('.Income');
-let instoks = [
-    {
-        id: 1,
-        NameProduct: 'Nike',
-        Cetagory: "addidas",
-        price: 200,
-        Amount: "rith",
-        Sell_program: 'thearith'
-    },
-    {
-        id: 1,
-        NameProduct: 'Nike',
-        Cetagory: "addidas",
-        price: 200,
-        Amount: "rith",
-        Sell_program: 'thearith'
-    },
-    {
-        id: 1,
-        NameProduct: 'Nike',
-        Cetagory: "addidas",
-        price: 200,
-        Amount: "rith",
-        Sell_program: 'thearith'
-    },
-    {
-        id: 1,
-        NameProduct: 'Nike',
-        Cetagory: "nike",
-        price: 200,
-        Amount: "rith",
-        Sell_program: 'thearith'
-    },
-    {
-        id: 1,
-        NameProduct: 'Nike',
-        Cetagory: "nike",
-        price: 200,
-        Amount: "rith",
-        Sell_program: 'thearith'
-    },
-    {
-        id: 1,
-        NameProduct: 'Nike',
-        Cetagory: "nike",
-        price: 200,
-        Amount: "rith",
-        Sell_program: 'thearith'
-    },
-    {
-        id: 1,
-        NameProduct: 'Nike',
-        Cetagory: "nike",
-        price: 200,
-        Amount: "rith",
-        Sell_program: 'thearith'
-    },
-]
-
+let instoks;
+instoks = JSON.parse(localStorage.getItem("products"));
+console.log(instoks)
 //  --------------display products Row ----------------------------------
 
 function CreateRow(stock){
@@ -67,9 +11,9 @@ function CreateRow(stock){
     let Id = document.createElement('td');
     Id.textContent = stock.id
     let product = document.createElement('td');
-    product.textContent = stock.NameProduct;
+    product.textContent = stock.name;
     let Cgy = document.createElement('td');
-    Cgy.textContent = stock.Cetagory;
+    Cgy.textContent = stock.categroy;
     let pri = document.createElement('td');
     pri.textContent = stock.price;
     let AMT = document.createElement('td');
@@ -81,7 +25,7 @@ function CreateRow(stock){
     tr.appendChild(Cgy);
     tr.appendChild(pri);
     tr.appendChild(AMT);
-    tr.appendChild(program);
+    // tr.appendChild(program);
     tbody.appendChild(tr)
 }
 let count = 0
@@ -99,16 +43,13 @@ for(let i = 0; i <instoks.length; i++){
 Income.lastElementChild.lastElementChild.textContent = someprice+"$"
 show_result.firstElementChild.textContent = count
 // ------------save date ------------
-function savestock() {
-    localStorage.setItem("stok", JSON.stringify(instoks));
-}
 function getStock() {
-    if (JSON.parse(localStorage.getItem("stok") != null)) {
-        instoks = JSON.parse(localStorage.getItem("stok"));
+    if (JSON.parse(localStorage.getItem("products") != null)) {
+        instoks = JSON.parse(localStorage.getItem("products"));
     }
     console.log(instoks);
 }
 // -----------------get localStorage--------
 savestock()
-getStock()
+
 // localStorage.clear()
