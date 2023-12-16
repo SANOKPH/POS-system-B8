@@ -92,11 +92,11 @@ main{
 }
 .createCetagory input{
   width: 400px;
+  border: solid rgb(3, 178, 178) ;
 }
 .diplay{
   flex: 3;
   height: 82vh;
-  /* background-color: aqua; */
 }
 .displaycetagory{
   height: 50%;
