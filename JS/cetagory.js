@@ -1,79 +1,75 @@
 let button = document.querySelector('button');
 let cardCreate = document.querySelector('.cardCreate')
 let action = document.querySelector('.action')
+let save = document.querySelector('.save');
+let tbody = document.querySelector('tbody');
+let input = document.querySelector('input');
+let iput = document.querySelector('.iput');
+// console.log(iput.lastElementChild.value);
 
-function showard(){
-    cardCreate.style.display ="block"
+function showard() {
+    cardCreate.style.display = "block"
     action.style.display = "none"
-    let save = document.querySelector('.save');
 
-    save.lastElementChild.addEventListener('click', nonecard) 
+
+    save.lastElementChild.addEventListener('click', nonecard)
 }
 
 button.addEventListener('click', showard)
-function nonecard(){
-    cardCreate.style.display ="none"
-    console.log(1);
-    action.style.display = "block" 
+function nonecard() {
+    cardCreate.style.display = "none"
+    action.style.display = "block"
 }
- 
+
 // table//====================================
 
-let tbody=document.querySelector('tbody');
+function create() {
+    let stocks = []
+    let obj = {}
+    obj.name = iput.lastElementChild.value;
+    obj.id = iput.firstElementChild.nextElementSibling.value;
+    stocks.push(obj)
+    console.log(stocks);
+    for (let stock of stocks) {
+        createRow(stock)
+    }
+    nonecard()
 
-let stocks = [
-    {
-        Id: 1,
-        cetagorys : "nike",
-        Image:'../image/trash.png',
-        image:'../image/edit.png',
-    },
-    {
-        Id: 2,
-        cetagorys : "nike",
-        Image:'../image/trash.png',
-        image:'../image/edit.png',
-    },
-    {
-        Id: 3,
-        cetagorys : "nike",
-        Image:'../image/trash.png',
-        image:'../image/edit.png',
-    },
-    {
-        Id: 4,
-        cetagorys : "nike",
-        Image:'../image/trash.png',
-        image:'../image/edit.png',
-    },
-    {
-        Id: 5,
-        cetagorys : "nike",
-        Image:'../image/trash.png',
-        image:'../image/edit.png',
-    },
-    {
-        Id: 6,
-        cetagorys : "nike",
-        Image:'../image/trash.png',
-        image:'../image/edit.png',
-    },
+}
+function saveCetagory() {
+    localStorage.setItem('stocks', JSON.stringify(stocks));
+}
 
-]
-function createRow (stock){
+function loadProducts() {
+    let loadProducts = JSON.parse(localStorage.getItem('stocks'));
+    console.log(loadProducts);
+    if (loadProducts != null) {
+        loadProducts=stocks
+    }
+    else {
+        saveCetagory()
+    }
+}
+
+
+
+
+
+save.firstElementChild.addEventListener('click', create)
+function createRow(stock) {
     let tr = document.createElement('tr')
     let id = document.createElement('td');
-    id.textContent = stock.Id
+    id.textContent = 1
     let nameproduct = document.createElement('td')
-    nameproduct.textContent =stock.cetagorys
+    nameproduct.textContent = stock.name
     let sell_progrese = document.createElement('td');
     let imge = document.createElement('img')
     imge.classList.add('image')
-    imge.src = stock.Image;
+    imge.src = '../image/edit.png';
 
-    let images=document.createElement('img');
+    let images = document.createElement('img');
     images.classList.add('image')
-    images.src=stock.image;
+    images.src = '../image/trash.png';
 
     sell_progrese.appendChild(imge)
     sell_progrese.appendChild(images)
@@ -86,7 +82,4 @@ function createRow (stock){
 
 }
 
-for(let stock of stocks){
-    createRow(stock)
-}
-
+loadProducts() 
