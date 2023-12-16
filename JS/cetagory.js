@@ -22,9 +22,9 @@ function nonecard() {
 }
 
 // table//====================================
-
+let stocks = []
 function create() {
-    let stocks = []
+    
     let obj = {}
     obj.name = iput.lastElementChild.value;
     obj.id = iput.firstElementChild.nextElementSibling.value;
@@ -40,16 +40,16 @@ function saveCetagory() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
 
-function loadProducts() {
-    let loadProducts = JSON.parse(localStorage.getItem('stocks'));
-    console.log(loadProducts);
-    if (loadProducts != null) {
-        loadProducts=stocks
-    }
-    else {
-        saveCetagory()
-    }
-}
+// function loadProducts() {
+//     let loadProducts = JSON.parse(localStorage.getItem('stocks'));
+//     console.log(loadProducts);
+//     if (loadProducts != null) {
+//         loadProducts=stocks
+//     }
+//     else {
+//         saveCetagory()
+//     }
+// }
 
 
 
@@ -79,7 +79,9 @@ function createRow(stock) {
     tr.appendChild(sell_progrese);
     tbody.appendChild(tr);
     console.log(tbody);
+    
 
 }
 
-loadProducts() 
+// loadProducts() 
+createRow()
