@@ -146,9 +146,4 @@ function deleteProduct(event) {
     
 }
 loadProducts()
-<<<<<<< HEAD
-createROW()
-// localStorage.clear();
-=======
 createROW();
->>>>>>> feature_remove_product
