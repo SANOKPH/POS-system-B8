@@ -89,10 +89,15 @@ main{
   background-color: rgb(3, 178, 178);
   height: 50px;
   width: 200px;
-}
+} 
 .createCetagory input{
   width: 400px;
   border: solid rgb(3, 178, 178) ;
+}
+button:hover{
+  box-shadow: rgba(254, 254, 254, 0.11) 0px 54px 55px, rgba(255, 254, 254, 0.396) 0px -12px 30px, rgba(250, 249, 249, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(253, 253, 253, 0.09) 0px -3px 5px;
+  transform: translateY(-1px);
+  background-color: aqua;
 }
 .diplay{
   flex: 3;
