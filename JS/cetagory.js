@@ -7,10 +7,12 @@ let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
 let stocks = [];
+console.log(stocks)
 
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
+
 function getStorage() {
     if (JSON.parse(localStorage.getItem('stocks')) != null) {
         stocks = JSON.parse(localStorage.getItem('stocks'));
@@ -29,14 +31,14 @@ button.onclick = () => {
     showcard(card);
 }
 
-// table//====================================
-function create() {
-    let obj = {}
-    obj.name = iput.lastElementChild.value;
-    stocks.push(obj)
-    console.log(stocks);
+// =================Table//====================================
+// function create() {
+//     let obj = {}
+//     obj.name = input.lastElementChild.value;
+//     stocks.push(obj)
+//     console.log(stocks);
 
-}
+// }
 
 function addCard() {
     card.style.display = 'block'
@@ -63,27 +65,23 @@ function createCard() {
 }
 function cencel() {
     hidecard(card);
-    showcard(action)
+    showcard(action);
+};
+//===================== Delete products================================
+function deleteProduct(e) {
+    let tr = e.target.closest('tr');
+    let id = tr.firstElementChild.textContent;
+    let idToDelete = stocks.findIndex(cards => cards.id === parseInt(id));
+    let isConfirm = confirm('Are you sure you want to delete this card?');
+    if (idToDelete !== -1 && isConfirm) {
+        tr.remove();
+        stocks.splice(idToDelete, 1);
+    } else {
+        console.log('Canceled delete!');
+    }
+    saveStorage();
+
 }
-// Delete products================================
-// function deleteProduct(element) {
-//     let trs = element.target.closest('tr');FFF
-
-//     stocks.splice(tr -2, 2);
-//     console.log(products);
-//     if (confirm("do you want to delete this product?")) {
-//         saveProducts();
-//         createROW();
-//     }
-
-
-// }
-
-
-
-
-
-
 function createRow() {
     for (let stock of stocks) {
         let tr = document.createElement('tr')
@@ -100,8 +98,7 @@ function createRow() {
         let images = document.createElement('img');
         images.classList.add('image')
         images.src = '../image/trash.png';
-        // images.addEventListener('click', deleteProduct)
-
+        images.addEventListener('click', deleteProduct)
 
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
@@ -110,7 +107,6 @@ function createRow() {
 
         tr.appendChild(sell_progrese);
         tbody.appendChild(tr);
-        // console.log(tbody);
     }
 
 }
