@@ -7,7 +7,7 @@ let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
 let stocks = [];
-
+// ---------save stoc-----------
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
@@ -68,21 +68,6 @@ function cencel() {
     hidecard(card);
     showcard(action)
 }
-// Delete products================================
-function deleteProduct(element) {
-
-    // let id = element.target.closest('tr').lastElementChild.textContent;
-    
-    // console.log(id);
-
-    // tr.splice(id - 1,1);
-    // // console.log();
-    // if (confirm("do you want to delete this product?")) {
-    //     saveStorage();
-    //     createRow()
-    // }
-
-}
 
 
 function createRow() {
@@ -104,7 +89,7 @@ function createRow() {
 
 
         imge.addEventListener('click', addCard)
-        images.addEventListener('click', deleteProduct);
+    
         console.log(images);
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
