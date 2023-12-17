@@ -1,9 +1,22 @@
 let tbody = document.querySelector('tbody');
 let show_result = document.querySelector('.show_result')
 let Income = document.querySelector('.Income');
+
+// -----------savs localstorage from  cetagory------------------
+
+let category = document.querySelector('.category ')
+let CTY = JSON.parse(localStorage.getItem('stocks'))
+let some_CTY = 0
+for (let value of CTY){
+    some_CTY += 1
+}
+category.lastElementChild.lastElementChild.textContent = some_CTY
+
+// ----------------------------save localstorage from product-----------------------------
+
 let instoks;
 instoks = JSON.parse(localStorage.getItem("products"));
-console.log(instoks)
+
 //  --------------display products Row ----------------------------------
 
 function CreateRow(stock){
@@ -28,6 +41,7 @@ function CreateRow(stock){
     // tr.appendChild(program);
     tbody.appendChild(tr)
 }
+
 let count = 0
 let someprice = 0
 let checkecategory = instoks[0].Cetagory
@@ -47,9 +61,8 @@ function getStock() {
     if (JSON.parse(localStorage.getItem("products") != null)) {
         instoks = JSON.parse(localStorage.getItem("products"));
     }
-    console.log(instoks);
 }
+
 // -----------------get localStorage--------
-savestock()
 
 // localStorage.clear()

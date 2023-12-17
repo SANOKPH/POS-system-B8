@@ -43,6 +43,9 @@ function addCard() {
     action.style.display = 'none'
 }
 function createCard() {
+    if (inputName.value === ""){
+        return alert('You must input value before create ')
+    }
     let uniqesID = localStorage.getItem('id');
     if (uniqesID === null) {
         uniqesID = 1;
