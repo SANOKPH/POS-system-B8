@@ -65,6 +65,24 @@ function cencel() {
     hidecard(card);
     showcard(action)
 }
+// Delete products================================
+// function deleteProduct(element) {
+//     let trs = element.target.closest('tr');FFF
+
+//     stocks.splice(tr -2, 2);
+//     console.log(products);
+//     if (confirm("do you want to delete this product?")) {
+//         saveProducts();
+//         createROW();
+//     }
+
+
+// }
+
+
+
+
+
 
 function createRow() {
     for (let stock of stocks) {
@@ -77,12 +95,13 @@ function createRow() {
         let imge = document.createElement('img')
         imge.classList.add('image')
         imge.src = '../image/edit.png';
+        imge.addEventListener('click', addCard)
 
         let images = document.createElement('img');
         images.classList.add('image')
         images.src = '../image/trash.png';
+        // images.addEventListener('click', deleteProduct)
 
-        imge.addEventListener('click', addCard)
 
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
