@@ -55,7 +55,7 @@ function loadProducts() {
 }
 function updatePrice(e) {
     let id = e.target.parentElement.dataset.id;
-    
+
     for (const object of products) {
         if (id == object.id) {
             object.quantity = e.target.value;
@@ -64,16 +64,14 @@ function updatePrice(e) {
     }
     saveProducts()
     createROW()
-    
+
 }
-
-
 function createROW() {
     loadProducts();
     for (const tr of document.querySelectorAll('tbody tr')) {
         tr.remove();
     }
-    
+
     for (const product of products) {
         let tr = document.createElement('tr')
         let tdId = document.createElement('td');
@@ -86,7 +84,7 @@ function createROW() {
         let tdAction = document.createElement('td')
         let btnDelete = document.createElement('button')
         tdCategory.textContent = product.categroy
-
+        
         tdqauntity.dataset.id = product.id;
 
         qtyInput.setAttribute('type', 'number');
@@ -123,31 +121,23 @@ function createROW() {
 }
 let quantities = document.querySelectorAll('input');
 function getQuantities(event) {
-    
     let qty = event.target.value
-    
     let price = event.target.parentElement.nextElementSibling.textContent.replace('$', "");
-
     event.target.parentElement.nextElementSibling.nextElementSibling.textContent = event.target.value * price + '$'
-    
-
 }
 for (let qty of quantities) {
     qty.addEventListener('change', getQuantities);
-    
-}
 
+}
 function deleteProduct(event) {
-    
+
     let id = event.target.closest('tr').firstElementChild.textContent;
-    
+
     products.splice(id - 1, 1);
     console.log(products);
     if (confirm("do you want to delete this product?")) {
         saveProducts();
-        
     }
-    
 }
 // ======================search product=================================
 function searchProduct() {
@@ -164,12 +154,38 @@ function searchProduct() {
         }
         saveProducts();
     }
-    
-}
 
+}
 let searchDataInput = document.querySelector(".input-search");
 searchDataInput.addEventListener("keyup", searchProduct);
+// =================================search short- product================
 
+function searchCategory() {
+    const selectedCategory = shortProduct.value;
+    console.log(selectedCategory);
+    for (const tr of document.querySelectorAll("tbody tr")) {
+        const category = tr.querySelector("td:nth-child(3)").textContent;
+
+        if (selectedCategory === "All Category" || selectedCategory === category) {
+            tr.style.display = "table-row";
+        } else {
+            tr.style.display = "none";
+        }
+    }
+    saveProducts();
+}
+let shortProduct = document.getElementById("short-product");
+shortProduct.addEventListener("change", searchCategory);
+
+// let short_product = document.querySelector('#short-product')
+let saveCTYs;
+saveCTYs = JSON.parse(localStorage.getItem('stocks'))
+console.log(saveCTYs);
+for(let save of saveCTYs){
+    let option = document.createElement('option')
+    option.textContent = save.name
+    shortProduct.appendChild (option)
+}
 loadProducts()
 createROW();
 
