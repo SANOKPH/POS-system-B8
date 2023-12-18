@@ -64,7 +64,7 @@ function updatePrice(e) {
     }
     saveProducts()
     createROW()
-    create_product();
+    
 }
 
 
