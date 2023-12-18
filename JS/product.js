@@ -64,7 +64,7 @@ function updatePrice(e) {
     }
     saveProducts()
     createROW()
-    create_product();
+    
 }
 
 
@@ -106,6 +106,8 @@ function createROW() {
         tdId.textContent = product.id
         tdName.textContent = product.name
         tbody.appendChild(tr)
+
+        tr.setAttribute("data-id", product.id);
         tr.appendChild(tdId)
         tr.appendChild(tdName)
         tr.appendChild(tdCategory)
@@ -143,7 +145,7 @@ function deleteProduct(event) {
     console.log(products);
     if (confirm("do you want to delete this product?")) {
         saveProducts();
-        createROW();
+        
     }
     
 }
@@ -170,5 +172,5 @@ searchDataInput.addEventListener("keyup", searchProduct);
 
 loadProducts()
 createROW();
-createROW()
+
 

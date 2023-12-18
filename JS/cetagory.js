@@ -7,8 +7,12 @@ let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
 let stocks = [];
+<<<<<<< HEAD
 console.log(stocks)
 
+=======
+// ---------save stoc-----------
+>>>>>>> a62a4a20154017db1f38d9dd189f5ab8992b4317
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
@@ -45,6 +49,9 @@ function addCard() {
     action.style.display = 'none'
 }
 function createCard() {
+    if (inputName.value === ""){
+        return alert('You must input value before create ')
+    }
     let uniqesID = localStorage.getItem('id');
     if (uniqesID === null) {
         uniqesID = 1;
@@ -82,6 +89,7 @@ function deleteProduct(e) {
     saveStorage();
 
 }
+
 function createRow() {
     for (let stock of stocks) {
         let tr = document.createElement('tr')
@@ -100,6 +108,12 @@ function createRow() {
         images.src = '../image/trash.png';
         images.addEventListener('click', deleteProduct)
 
+        console.log(images);
+
+
+        imge.addEventListener('click', addCard)
+    
+        console.log(images);
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
         tr.appendChild(id);
