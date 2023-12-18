@@ -7,7 +7,8 @@ let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
 let stocks = [];
-// ---------save stoc-----------
+console.log(stocks)
+
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
@@ -100,6 +101,7 @@ function createRow() {
         let images = document.createElement('img');
         images.classList.add('image')
         images.src = '../image/trash.png';
+        images.addEventListener('click', deleteProduct)
         console.log(images);
 
 
