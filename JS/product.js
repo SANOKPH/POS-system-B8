@@ -145,7 +145,7 @@ function deleteProduct(event) {
     console.log(products);
     if (confirm("do you want to delete this product?")) {
         saveProducts();
-        createROW();
+        
     }
     
 }
@@ -172,5 +172,5 @@ searchDataInput.addEventListener("keyup", searchProduct);
 
 loadProducts()
 createROW();
-createROW()
+
 
