@@ -84,7 +84,7 @@ function createROW() {
         let tdAction = document.createElement('td')
         let btnDelete = document.createElement('button')
         tdCategory.textContent = product.categroy
-        tdCategory.setAttribute("data-id", product.id);
+        
         tdqauntity.dataset.id = product.id;
 
         qtyInput.setAttribute('type', 'number');
@@ -177,6 +177,15 @@ function searchCategory() {
 let shortProduct = document.getElementById("short-product");
 shortProduct.addEventListener("change", searchCategory);
 
+// let short_product = document.querySelector('#short-product')
+let saveCTYs;
+saveCTYs = JSON.parse(localStorage.getItem('stocks'))
+console.log(saveCTYs);
+for(let save of saveCTYs){
+    let option = document.createElement('option')
+    option.textContent = save.name
+    shortProduct.appendChild (option)
+}
 loadProducts()
 createROW();
 
