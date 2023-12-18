@@ -16,7 +16,6 @@ category.lastElementChild.lastElementChild.textContent = some_CTY
 
 let instoks;
 instoks = JSON.parse(localStorage.getItem("products"));
-
 //  --------------display products Row ----------------------------------
 
 function CreateRow(stock){

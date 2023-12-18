@@ -6,6 +6,7 @@ let tbody = document.querySelector('tbody');
 let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
+let title = document.querySelector('.title h2');
 let stocks = [];
 console.log(stocks)
 
@@ -43,6 +44,11 @@ button.onclick = () => {
 function addCard() {
     card.style.display = 'block'
     action.style.display = 'none'
+}
+
+function deletecard() {
+    card.style.display = 'none'
+    action.style.display = 'block'
 }
 function createCard() {
     if (inputName.value === "") {
@@ -85,13 +91,49 @@ function deleteProduct(e) {
     saveStorage();
 }
 
+// ------------------editCetagory-----------------------------------------
+
+function edit_category(event){
+    addCard()
+    let index = event.target.closest('tr').dataset.index
+    let tr = event.target.closest('tr')
+    let saves = document.querySelector('.save button')
+    title.textContent = " UPDATE GATEGORY"
+    saves.textContent =  'UPDATE'
+    saves.removeAttribute('onclick')
+    saves.setAttribute('onclick',`updateCategory(${index})`)
+    inputName.value = tr.children[1].textContent
+
+}
+
+function updateCategory(index){
+    console.log(index);
+    let trs = document.querySelector('tbody')
+    stocks[index].name = inputName.value
+    let names = trs.children[index].firstElementChild.nextElementSibling
+    let savesa = document.querySelector('.save button')
+    savesa.removeAttribute('onclick')
+    savesa.textContent = 'CREATE'
+    savesa.setAttribute('onclick','createCard()')
+    title.textContent = "CREAT CATEGORY"
+    names.textContent = inputName.value
+    inputName.value = ""
+    deletecard()
+    saveStorage()
+    createRow()
+    location.reload()
+}
+
+// -------------------------------createCetagory--------------------------------------
+
 function createRow() {
-    for (let stock of stocks) {
-        let tr = document.createElement('tr')
+    for (let i=0; i<stocks.length; i++) {
+        let tr = document.createElement('tr');
+        tr.dataset.index = i;
         let id = document.createElement('td');
-        id.textContent = stock.id
+        id.textContent = stocks[i].id
         let nameproduct = document.createElement('td')
-        nameproduct.textContent = stock.name
+        nameproduct.textContent = stocks[i].name;
         let sell_progrese = document.createElement('td');
         let imge = document.createElement('img')
         imge.classList.add('image')
@@ -105,7 +147,7 @@ function createRow() {
         console.log(images);
 
 
-        imge.addEventListener('click', addCard)
+        imge.addEventListener('click', edit_category)
 
         console.log(images);
         sell_progrese.appendChild(imge)
