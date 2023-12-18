@@ -63,6 +63,7 @@ function updatePrice(e) {
         }
     }
     saveProducts()
+    createROW()
     create_product();
 }
 
@@ -105,6 +106,8 @@ function createROW() {
         tdId.textContent = product.id
         tdName.textContent = product.name
         tbody.appendChild(tr)
+
+        tr.setAttribute("data-id", product.id);
         tr.appendChild(tdId)
         tr.appendChild(tdName)
         tr.appendChild(tdCategory)

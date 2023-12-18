@@ -1,87 +1,108 @@
 let button = document.querySelector('button');
-let cardCreate = document.querySelector('.cardCreate')
+let card = document.querySelector('.cardCreate')
 let action = document.querySelector('.action')
 let save = document.querySelector('.save');
 let tbody = document.querySelector('tbody');
 let input = document.querySelector('input');
-let iput = document.querySelector('.iput');
-// console.log(iput.lastElementChild.value);
-
-function showard() {
-    cardCreate.style.display = "block"
-    action.style.display = "none"
-
-
-    save.lastElementChild.addEventListener('click', nonecard)
+let inputName = document.querySelector('#name');
+let inputDescript = document.querySelector('#descript');
+let stocks = [];
+// ---------save stoc-----------
+function saveStorage() {
+    localStorage.setItem('stocks', JSON.stringify(stocks));
+}
+function getStorage() {
+    if (JSON.parse(localStorage.getItem('stocks')) != null) {
+        stocks = JSON.parse(localStorage.getItem('stocks'));
+    }
+}
+function showcard(event) {
+    event.style.display = "block";
 }
 
-button.addEventListener('click', showard)
-function nonecard() {
-    cardCreate.style.display = "none"
-    action.style.display = "block"
+function hidecard(event) {
+    event.style.display = 'none';
+}
+
+button.onclick = () => {
+    hidecard(action);
+    showcard(card);
 }
 
 // table//====================================
-let stocks = []
 function create() {
-    
     let obj = {}
     obj.name = iput.lastElementChild.value;
-    obj.id = iput.firstElementChild.nextElementSibling.value;
     stocks.push(obj)
     console.log(stocks);
-    for (let stock of stocks) {
-        createRow(stock)
+
+}
+
+function addCard() {
+    card.style.display = 'block'
+    action.style.display = 'none'
+}
+function createCard() {
+    if (inputName.value === ""){
+        return alert('You must input value before create ')
     }
-    nonecard()
-
+    let uniqesID = localStorage.getItem('id');
+    if (uniqesID === null) {
+        uniqesID = 1;
+        localStorage.setItem('id', JSON.stringify(uniqesID));
+    } else {
+        uniqesID = parseInt(uniqesID) + 1;
+        localStorage.setItem('id', JSON.stringify(uniqesID));
+    }
+    let cards = {
+        id: uniqesID,
+        name: inputName.value
+    }
+    stocks.push(cards);
+    // console.log(stocks);
+    createRow()
+    saveStorage();
+    location.reload()
 }
-function saveCetagory() {
-    localStorage.setItem('stocks', JSON.stringify(stocks));
+function cencel() {
+    hidecard(card);
+    showcard(action)
 }
 
-// function loadProducts() {
-//     let loadProducts = JSON.parse(localStorage.getItem('stocks'));
-//     console.log(loadProducts);
-//     if (loadProducts != null) {
-//         loadProducts=stocks
-//     }
-//     else {
-//         saveCetagory()
-//     }
-// }
+
+function createRow() {
+    for (let stock of stocks) {
+        let tr = document.createElement('tr')
+        let id = document.createElement('td');
+        id.textContent = stock.id
+        let nameproduct = document.createElement('td')
+        nameproduct.textContent = stock.name
+        let sell_progrese = document.createElement('td');
+        let imge = document.createElement('img')
+        imge.classList.add('image')
+        imge.src = '../image/edit.png';
+
+        let images = document.createElement('img');
+        images.classList.add('image')
+        images.src = '../image/trash.png';
+        console.log(images);
 
 
-
-
-
-save.firstElementChild.addEventListener('click', create)
-function createRow(stock) {
-    let tr = document.createElement('tr')
-    let id = document.createElement('td');
-    id.textContent = 1
-    let nameproduct = document.createElement('td')
-    nameproduct.textContent = stock.name
-    let sell_progrese = document.createElement('td');
-    let imge = document.createElement('img')
-    imge.classList.add('image')
-    imge.src = '../image/edit.png';
-
-    let images = document.createElement('img');
-    images.classList.add('image')
-    images.src = '../image/trash.png';
-
-    sell_progrese.appendChild(imge)
-    sell_progrese.appendChild(images)
-    tr.appendChild(id);
-    tr.appendChild(nameproduct);
-
-    tr.appendChild(sell_progrese);
-    tbody.appendChild(tr);
-    console.log(tbody);
+        imge.addEventListener('click', addCard)
     
+        console.log(images);
+        sell_progrese.appendChild(imge)
+        sell_progrese.appendChild(images)
+        tr.appendChild(id);
+        tr.appendChild(nameproduct);
+
+        tr.appendChild(sell_progrese);
+        tbody.appendChild(tr);
+        // console.log(tbody);
+    }
 
 }
 
-// loadProducts() 
+getStorage();
 createRow()
+// localStorage.clear();
