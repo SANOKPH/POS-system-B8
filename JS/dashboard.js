@@ -4,6 +4,7 @@ let Income = document.querySelector('.Income');
 let instoks;
 instoks = JSON.parse(localStorage.getItem("products"));
 console.log(instoks)
+
 //  --------------display products Row ----------------------------------
 
 function CreateRow(stock){

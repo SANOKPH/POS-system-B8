@@ -6,16 +6,26 @@ let tbody = document.querySelector('tbody');
 let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
+let title = document.querySelector('.title h2');
 let stocks = [];
+console.log(stocks)
+
+// ================================save localStorage=========================
 
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
+
+// ================================get localStorage==============================
+
 function getStorage() {
     if (JSON.parse(localStorage.getItem('stocks')) != null) {
         stocks = JSON.parse(localStorage.getItem('stocks'));
     }
 }
+
+// ================= button show card====================================
+
 function showcard(event) {
     event.style.display = "block";
 }
@@ -28,21 +38,26 @@ button.onclick = () => {
     hidecard(action);
     showcard(card);
 }
-
-// table//====================================
-function create() {
-    let obj = {}
-    obj.name = iput.lastElementChild.value;
-    stocks.push(obj)
-    console.log(stocks);
-
-}
-
 function addCard() {
     card.style.display = 'block'
     action.style.display = 'none'
 }
+
+function deletecard() {
+    card.style.display = 'none'
+    action.style.display = 'block'
+}
 function createCard() {
+    // console.log(stocks[0].name);
+
+    for (let stock of stocks){
+        if(inputName.value == stock.name){
+            return alert ('You have already entered this category')
+        }
+    }
+    if (inputName.value === "") {
+        return alert('You must input value before create ')
+    }
     let uniqesID = localStorage.getItem('id');
     if (uniqesID === null) {
         uniqesID = 1;
@@ -56,34 +71,90 @@ function createCard() {
         name: inputName.value
     }
     stocks.push(cards);
-    // console.log(stocks);
     createRow()
     saveStorage();
     location.reload()
 }
 function cencel() {
     hidecard(card);
-    showcard(action)
+    showcard(action);
+};
+
+//===================== Delete cetagory================================
+
+function deleteProduct(e) {
+    let tr = e.target.closest('tr');
+    let id = tr.firstElementChild.textContent;
+    let idToDelete = stocks.findIndex(cards => cards.id === parseInt(id));
+    let isConfirm = confirm('Are you sure you want to delete this card?');
+    if (idToDelete !== -1 && isConfirm) {
+        tr.remove();
+        stocks.splice(idToDelete, 1);
+    } else {
+        console.log('Canceled delete!');
+    }
+    saveStorage();
 }
 
+// ------------------edit Cetagory-----------------------------------------
+
+function edit_category(event){
+    addCard()
+    let index = event.target.closest('tr').dataset.index
+    let tr = event.target.closest('tr')
+    let saves = document.querySelector('.save button')
+    title.textContent = " UPDATE GATEGORY"
+    saves.textContent =  'UPDATE'
+    saves.removeAttribute('onclick')
+    saves.setAttribute('onclick',`updateCategory(${index})`)
+    inputName.value = tr.children[1].textContent
+
+}
+
+function updateCategory(index){
+    // console.log(index);
+    let trs = document.querySelector('tbody')
+    stocks[index].name = inputName.value
+    let names = trs.children[index].firstElementChild.nextElementSibling
+    let savesa = document.querySelector('.save button')
+    savesa.removeAttribute('onclick')
+    savesa.textContent = 'CREATE'
+    savesa.setAttribute('onclick','createCard()')
+    title.textContent = "CREAT CATEGORY"
+    names.textContent = inputName.value
+    inputName.value = ""
+    deletecard()
+    saveStorage()
+    createRow()
+    location.reload()
+}
+
+// -------------------------------create Cetagory--------------------------------------
+
 function createRow() {
-    for (let stock of stocks) {
-        let tr = document.createElement('tr')
+    for (let i=0; i<stocks.length; i++) {
+        let tr = document.createElement('tr');
+        tr.dataset.index = i;
         let id = document.createElement('td');
-        id.textContent = stock.id
+        id.textContent = stocks[i].id
         let nameproduct = document.createElement('td')
-        nameproduct.textContent = stock.name
+        nameproduct.textContent = stocks[i].name;
         let sell_progrese = document.createElement('td');
         let imge = document.createElement('img')
         imge.classList.add('image')
         imge.src = '../image/edit.png';
+        imge.addEventListener('click', addCard)
 
         let images = document.createElement('img');
         images.classList.add('image')
         images.src = '../image/trash.png';
+        images.addEventListener('click', deleteProduct)
+        // console.log(images);
 
-        imge.addEventListener('click', addCard)
 
+        imge.addEventListener('click', edit_category)
+
+        // console.log(images);
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
         tr.appendChild(id);
@@ -91,11 +162,9 @@ function createRow() {
 
         tr.appendChild(sell_progrese);
         tbody.appendChild(tr);
-        // console.log(tbody);
     }
 
 }
-
 getStorage();
 createRow()
-// localStorage.clear();
+// localStorage.clear()
