@@ -10,15 +10,22 @@ let title = document.querySelector('.title h2');
 let stocks = [];
 console.log(stocks)
 
+// ================================save localStorage=========================
+
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
+
+// ================================get localStorage==============================
 
 function getStorage() {
     if (JSON.parse(localStorage.getItem('stocks')) != null) {
         stocks = JSON.parse(localStorage.getItem('stocks'));
     }
 }
+
+// ================= button show card====================================
+
 function showcard(event) {
     event.style.display = "block";
 }
@@ -31,16 +38,6 @@ button.onclick = () => {
     hidecard(action);
     showcard(card);
 }
-
-// =================Table//====================================
-// function create() {
-//     let obj = {}
-//     obj.name = input.lastElementChild.value;
-//     stocks.push(obj)
-//     console.log(stocks);
-
-// }
-
 function addCard() {
     card.style.display = 'block'
     action.style.display = 'none'
@@ -67,7 +64,6 @@ function createCard() {
         name: inputName.value
     }
     stocks.push(cards);
-    // console.log(stocks);
     createRow()
     saveStorage();
     location.reload()
@@ -76,7 +72,9 @@ function cencel() {
     hidecard(card);
     showcard(action);
 };
-//===================== Delete products================================
+
+//===================== Delete cetagory================================
+
 function deleteProduct(e) {
     let tr = e.target.closest('tr');
     let id = tr.firstElementChild.textContent;
@@ -91,7 +89,7 @@ function deleteProduct(e) {
     saveStorage();
 }
 
-// ------------------editCetagory-----------------------------------------
+// ------------------edit Cetagory-----------------------------------------
 
 function edit_category(event){
     addCard()
@@ -124,7 +122,7 @@ function updateCategory(index){
     location.reload()
 }
 
-// -------------------------------createCetagory--------------------------------------
+// -------------------------------create Cetagory--------------------------------------
 
 function createRow() {
     for (let i=0; i<stocks.length; i++) {
@@ -137,7 +135,7 @@ function createRow() {
         let sell_progrese = document.createElement('td');
         let imge = document.createElement('img')
         imge.classList.add('image')
-        imge.src = '../image/edit.png';
+        imge.src = '../image/edit_button.png';
         imge.addEventListener('click', addCard)
 
         let images = document.createElement('img');
@@ -160,7 +158,5 @@ function createRow() {
     }
 
 }
-
 getStorage();
 createRow()
-// localStorage.clear();
