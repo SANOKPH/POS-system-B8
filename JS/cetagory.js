@@ -7,10 +7,16 @@ let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
 let stocks = [];
+<<<<<<< HEAD
+console.log(stocks)
+
+=======
 // ---------save stoc-----------
+>>>>>>> a62a4a20154017db1f38d9dd189f5ab8992b4317
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
+
 function getStorage() {
     if (JSON.parse(localStorage.getItem('stocks')) != null) {
         stocks = JSON.parse(localStorage.getItem('stocks'));
@@ -29,14 +35,14 @@ button.onclick = () => {
     showcard(card);
 }
 
-// table//====================================
-function create() {
-    let obj = {}
-    obj.name = iput.lastElementChild.value;
-    stocks.push(obj)
-    console.log(stocks);
+// =================Table//====================================
+// function create() {
+//     let obj = {}
+//     obj.name = input.lastElementChild.value;
+//     stocks.push(obj)
+//     console.log(stocks);
 
-}
+// }
 
 function addCard() {
     card.style.display = 'block'
@@ -66,9 +72,23 @@ function createCard() {
 }
 function cencel() {
     hidecard(card);
-    showcard(action)
-}
+    showcard(action);
+};
+//===================== Delete products================================
+function deleteProduct(e) {
+    let tr = e.target.closest('tr');
+    let id = tr.firstElementChild.textContent;
+    let idToDelete = stocks.findIndex(cards => cards.id === parseInt(id));
+    let isConfirm = confirm('Are you sure you want to delete this card?');
+    if (idToDelete !== -1 && isConfirm) {
+        tr.remove();
+        stocks.splice(idToDelete, 1);
+    } else {
+        console.log('Canceled delete!');
+    }
+    saveStorage();
 
+}
 
 function createRow() {
     for (let stock of stocks) {
@@ -81,10 +101,13 @@ function createRow() {
         let imge = document.createElement('img')
         imge.classList.add('image')
         imge.src = '../image/edit.png';
+        imge.addEventListener('click', addCard)
 
         let images = document.createElement('img');
         images.classList.add('image')
         images.src = '../image/trash.png';
+        images.addEventListener('click', deleteProduct)
+
         console.log(images);
 
 
@@ -98,7 +121,6 @@ function createRow() {
 
         tr.appendChild(sell_progrese);
         tbody.appendChild(tr);
-        // console.log(tbody);
     }
 
 }
