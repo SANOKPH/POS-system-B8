@@ -6,6 +6,7 @@ let tbody = document.querySelector('tbody');
 let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
+let title = document.querySelector('.title h2');
 let stocks = [];
 
 function saveStorage() {
@@ -78,14 +79,13 @@ function cencel() {
 
 function edit_category(event){
     addCard()
-    
     let index = event.target.closest('tr').dataset.index
     let tr = event.target.closest('tr')
     let saves = document.querySelector('.save button')
+    title.textContent = " UPDATE GATEGORY"
     saves.textContent =  'UPDATE'
     saves.removeAttribute('onclick')
     saves.setAttribute('onclick',`updateCategory(${index})`)
-    console.log(save);
     inputName.value = tr.children[1].textContent
 
 }
@@ -93,15 +93,19 @@ function edit_category(event){
 function updateCategory(index){
     console.log(index);
     let trs = document.querySelector('tbody')
+    stocks[index].name = inputName.value
     let names = trs.children[index].firstElementChild.nextElementSibling
     let savesa = document.querySelector('.save button')
     savesa.removeAttribute('onclick')
     savesa.textContent = 'CREATE'
     savesa.setAttribute('onclick','createCard()')
+    title.textContent = "CREAT CATEGORY"
     names.textContent = inputName.value
     inputName.value = ""
     deletecard()
-    console.log(savesa);
+    saveStorage()
+    createRow()
+    location.reload()
 }
 
 // -------------------------------createCetagory--------------------------------------
