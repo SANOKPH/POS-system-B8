@@ -7,7 +7,7 @@ let input = document.querySelector('input');
 let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
 let stocks = [];
-
+// ---------save stoc-----------
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
@@ -69,6 +69,7 @@ function cencel() {
     showcard(action)
 }
 
+
 function createRow() {
     for (let stock of stocks) {
         let tr = document.createElement('tr')
@@ -84,9 +85,12 @@ function createRow() {
         let images = document.createElement('img');
         images.classList.add('image')
         images.src = '../image/trash.png';
+        console.log(images);
+
 
         imge.addEventListener('click', addCard)
-
+    
+        console.log(images);
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
         tr.appendChild(id);
