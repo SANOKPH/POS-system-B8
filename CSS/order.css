@@ -149,12 +149,38 @@ th {
   /* background-color: aqua; */
 }
 .total h1{
-  color: white;
+  /* color: white; */
   border: 2px solid aqua;
   border-radius: 10px;
   width: 60%;
   height: 50%;
-  background-color: gray;
+  /* background-color: gray; */
   text-align: center;
 
+}
+
+.prine button{
+  width: 150px;
+  height: 30px;
+  font-size: large;
+  background-color: aqua ;
+}
+.prine button:hover {
+
+  box-shadow: rgba(254, 254, 254, 0.11) 0px 54px 55px, rgba(255, 254, 254, 0.396) 0px -12px 30px, rgba(250, 249, 249, 0.12) 0px 4px 6px, rgba(255, 255, 255, 0.17) 0px 12px 13px, rgba(253, 253, 253, 0.09) 0px -3px 5px;
+  transform: translateY(-1px);
+  background-color: rgb(255, 3, 3);
+}
+.prine{
+  display: flex;
+  align-items: center;
+  /* background-color: blueviolet; */
+  height: 60px;
+  margin-left: 20px;
+}
+.winth{
+  padding: 5px;
+  width: 50px;
+  height: 40px;
+  font-size: 30px;
 }
