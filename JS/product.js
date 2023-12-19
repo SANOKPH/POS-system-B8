@@ -186,6 +186,128 @@ for(let save of saveCTYs){
     option.textContent = save.name
     shortProduct.appendChild (option)
 }
+// =======================add product================
+
+let newProducts = [];
+
+function hide(element) {
+    element.style.display = "none";
+}
+
+function show(element) {
+    element.style.display = "block";
+}
+let dom_click_add_product = document.querySelector("#click-add");
+dom_click_add_product.addEventListener("click", (e) => {
+    let dom_dialog = document.querySelector("#product-dialog");
+    show(dom_dialog);
+});
+let onCancel = document.querySelector(".cancel");
+onCancel.addEventListener("click", (e) => {
+    let dom_dialog = document.querySelector("#product-dialog");
+    hide(dom_dialog);
+});
+
+function add_product() {
+    let dom_dialog = document.querySelector("#product-dialog");
+    show(dom_dialog);
+    for (const newProduct of newProducts) {
+        let tr = document.createElement("tr");
+        let tdId = document.createElement("td");
+        let tdName = document.createElement("td");
+        let tdCategory = document.createElement("td");
+        let tdQuantity = document.createElement("td");
+        let qtyInput = document.createElement("input");
+        let tdPrice = document.createElement("td");
+        let tdTotalPrice = document.createElement("td");
+        let tdAction = document.createElement("td");
+        let btnDelete = document.createElement("button");
+
+        tdQuantity.dataset.id = newProduct.id;
+
+        qtyInput.setAttribute("type", "number");
+        qtyInput.setAttribute("min", "0");
+        qtyInput.value = newProduct.quantity;
+        qtyInput.addEventListener("change", updatePrice);
+
+        btnDelete.classList.add("delete");
+        btnDelete.textContent = "delete";
+        btnDelete.addEventListener("click", deleteProduct);
+
+        let btnEdit = document.createElement("button");
+        btnEdit.classList.add("edit");
+        btnEdit.textContent = "edit";
+        btnEdit.addEventListener("click", editProduct);
+        tdId.textContent = newProduct.id;
+        console.log(id);
+        tdName.textContent = newProduct.name;
+        tr.setAttribute("data-id", newProduct.id);
+        tbody.appendChild(tr);
+        tr.appendChild(tdId);
+        tr.appendChild(tdName);
+        tr.appendChild(tdCategory);
+        tr.appendChild(tdQuantity);
+        tdQuantity.append(qtyInput);
+        tr.appendChild(tdPrice);
+        tr.appendChild(tdTotalPrice);
+        tr.appendChild(tdAction);
+        tdAction.appendChild(btnEdit);
+        tdAction.appendChild(btnDelete);
+    }
+    createBtn()
+}
+
+ 
+function createBtn() {
+
+    const title = document.querySelector("#title");
+    
+    const quantity = document.querySelector("#quantity");
+    const price = document.querySelector("#price");
+    const total = document.querySelector("#total");
+
+    if (products.length === 0) {
+        uniqueId = 1;
+    } else {
+        uniqueId = products[products.length - 1].id + 1;
+    }
+
+
+    let newProduct = {
+        id: uniqueId,
+        name: title.value,
+        categroy: category.value,
+        quantity: quantity.value,
+        price: price.value,
+    };
+    // categories.push(newProduct.categroy);
+    products.push(newProduct);
+    saveProducts();
+    loadProducts();
+    createROW();
+    updatePrice();
+    title.value = "";
+    category.value = "";
+    quantity.value = "";
+    price.value = "";
+    total.value = "";
+    let dom_dialog = document.querySelector("#product-dialog");
+    hide(dom_dialog);
+}
+let option_category= document.querySelector("#category")
+saveCTYs = JSON.parse(localStorage.getItem('stocks'))
+for(let save of saveCTYs){
+    let option = document.createElement('option')
+    option.textContent = save.name
+    option_category.appendChild (option)
+}
+const create = document.querySelector(".create_Btn");
+create.addEventListener("click", createBtn);
+create.addEventListener("click", (e) => {
+    let dom_dialog = document.querySelector("#product-dialog");
+
+    hide(dom_dialog);
+});
 loadProducts()
 createROW();
 
