@@ -97,9 +97,9 @@ function createROW() {
         btnDelete.textContent = 'delete'
         btnDelete.addEventListener("click", deleteProduct)
 
-        let btnEdite = document.createElement('button')
-        btnEdite.classList.add('edit')
-        btnEdite.textContent = 'edit'
+        let btnEdit = document.createElement('button')
+        btnEdit.classList.add('edit')
+        btnEdit.textContent = 'edit'
 
         tdId.textContent = product.id
         tdName.textContent = product.name
@@ -114,7 +114,7 @@ function createROW() {
         tr.appendChild(tdprice)
         tr.appendChild(tdTotalPrice)
         tr.appendChild(tdAction)
-        tdAction.appendChild(btnEdite)
+        tdAction.appendChild(btnEdit)
         tdAction.appendChild(btnDelete)
     }
 
@@ -137,6 +137,7 @@ function deleteProduct(event) {
     console.log(products);
     if (confirm("do you want to delete this product?")) {
         saveProducts();
+        createROW()
     }
 }
 // ======================search product=================================
