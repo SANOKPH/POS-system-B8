@@ -37,7 +37,6 @@ function CreateRow(stock){
     tr.appendChild(Cgy);
     tr.appendChild(pri);
     tr.appendChild(AMT);
-    // tr.appendChild(program);
     tbody.appendChild(tr)
 }
 
@@ -55,13 +54,6 @@ for(let i = 0; i <instoks.length; i++){
 
 Income.lastElementChild.lastElementChild.textContent = someprice+"$"
 show_result.firstElementChild.textContent = count
-// ------------save date ------------
-function getStock() {
-    if (JSON.parse(localStorage.getItem("products") != null)) {
-        instoks = JSON.parse(localStorage.getItem("products"));
-    }
-}
 
-// -----------------get localStorage--------
 
 // localStorage.clear()
