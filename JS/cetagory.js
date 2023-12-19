@@ -8,7 +8,6 @@ let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
 let title = document.querySelector('.title h2');
 let stocks = [];
-console.log(stocks)
 
 // ================================save localStorage=========================
 
@@ -67,7 +66,8 @@ function createCard() {
     }
     let cards = {
         id: uniqesID,
-        name: inputName.value
+        name: inputName.value,
+        DSP : inputDescript.value,
     }
     stocks.push(cards);
     createRow()
@@ -107,10 +107,15 @@ function edit_category(event){
     saves.removeAttribute('onclick')
     saves.setAttribute('onclick',`updateCategory(${index})`)
     inputName.value = tr.children[1].textContent
-
+    inputDescript.value = stocks[index].DSP
 }
 
 function updateCategory(index){
+    for (let stock of stocks){
+        if(inputName.value == stock.name){
+            return alert ('You have not update this Category ')
+        }
+    }
     console.log(index);
     let trs = document.querySelector('tbody')
     stocks[index].name = inputName.value
@@ -122,6 +127,7 @@ function updateCategory(index){
     title.textContent = "CREAT CATEGORY"
     names.textContent = inputName.value
     inputName.value = ""
+    inputDescript.value = ''
     deletecard()
     saveStorage()
     createRow()
@@ -149,16 +155,12 @@ function createRow() {
         images.src = '../image/trash.png';
         images.addEventListener('click', deleteProduct)
         console.log(images);
-
-
         imge.addEventListener('click', edit_category)
-
         console.log(images);
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
         tr.appendChild(id);
         tr.appendChild(nameproduct);
-
         tr.appendChild(sell_progrese);
         tbody.appendChild(tr);
     }
