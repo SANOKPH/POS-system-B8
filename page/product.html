@@ -90,6 +90,35 @@
 
 
     </main>
+    <div id="product-dialog" style="display:none;">
+      <dialog open>
+          <header>Create New Product</header>
+          <section>
+              <label>ID product</label>
+              <input id="title" type="text" placeholder="Type your product name" required />
+              <label>Catigory</label>
+              <select id="category">
+                <option value="Girl's clothes">Girl's clothes</option>
+                <option value="Boy's clothes">Boy's clothes</option>
+                <option value="Shoes">Shoes</option>
+                <option value="Bags">Bags</option>
+  
+              </select>
+              <label>Price</label>
+              <input id="price" type="number" placeholder="Pice of your product" required min="1" />
+              <label >Quantity</label>
+              <input id="quantity" type="number" value="1">
+              
+          </section>
+
+          <menu>
+            <button class="cancel" >Cancel</button>
+            <button class="create_Btn"  type="button">Create</button>
+            
+          </menu>
+          
+      </dialog>
+    </div>
   <script src="../JS/product.js"></script>
 </body>
 
