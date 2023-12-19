@@ -48,6 +48,12 @@ function deletecard() {
     action.style.display = 'block'
 }
 function createCard() {
+    for (let stock of stocks){
+        if(inputName.value == stock.name){
+            return alert ('You have already entered this category')
+        }
+    }
+    
     if (inputName.value === "") {
         return alert('You must input value before create ')
     }

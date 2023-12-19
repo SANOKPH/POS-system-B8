@@ -148,3 +148,13 @@ th {
   padding-left: 20px;
   /* background-color: aqua; */
 }
+.total h1{
+  color: white;
+  border: 2px solid aqua;
+  border-radius: 10px;
+  width: 60%;
+  height: 50%;
+  background-color: gray;
+  text-align: center;
+
+}
