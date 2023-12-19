@@ -13,11 +13,22 @@ function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
 //function getarray object from localStorage================
+
+// ================================save localStorage=========================
+
+function saveStorage() {
+    localStorage.setItem('stocks', JSON.stringify(stocks));
+}
+
+// ================================get localStorage==============================
+
 function getStorage() {
     if (JSON.parse(localStorage.getItem('stocks')) != null) {
         stocks = JSON.parse(localStorage.getItem('stocks'));
     }
 }
+
+// ================= button show card====================================
 
 function showcard(event) {
     event.style.display = "block";
@@ -46,6 +57,12 @@ function createCard() {
     // let tr = document.querySelectorAll(')
 
     console.log(input.value)
+    for (let stock of stocks){
+        if(inputName.value == stock.name){
+            return alert ('You have already entered this category')
+        }
+    }
+    
     if (inputName.value === "") {
         return alert('You must input value before create ')
     }
@@ -59,7 +76,8 @@ function createCard() {
     }
     let cards = {
         id: uniqesID,
-        name: inputName.value
+        name: inputName.value,
+        DSP : inputDescript.value,
     }
     stocks.push(cards);
     createRow()
@@ -70,7 +88,9 @@ function cencel() {
     hidecard(card);
     showcard(action);
 };
-//===================== Delete products================================
+
+//===================== Delete cetagory================================
+
 function deleteProduct(e) {
     let tr = e.target.closest('tr');
     let id = tr.firstElementChild.textContent;
@@ -85,7 +105,7 @@ function deleteProduct(e) {
     saveStorage();
 }
 
-// ------------------editCetagory-----------------------------------------
+// ------------------edit Cetagory-----------------------------------------
 
 function edit_category(event) {
     addCard()
@@ -97,10 +117,17 @@ function edit_category(event) {
     saves.removeAttribute('onclick')
     saves.setAttribute('onclick', `updateCategory(${index})`)
     inputName.value = tr.children[1].textContent
-
+    inputDescript.value = stocks[index].DSP
 }
 
-function updateCategory(index) {
+
+function updateCategory(index){
+    for (let stock of stocks){
+        if(inputName.value == stock.name){
+            return alert ('You have not update this Category ')
+        }
+    }
+    console.log(index);
     let trs = document.querySelector('tbody')
     stocks[index].name = inputName.value
     let names = trs.children[index].firstElementChild.nextElementSibling
@@ -111,13 +138,14 @@ function updateCategory(index) {
     title.textContent = "CREAT CATEGORY"
     names.textContent = inputName.value
     inputName.value = ""
+    inputDescript.value = ''
     deletecard()
     saveStorage()
     createRow()
     location.reload()
 }
 
-// -------------------------------createCetagory--------------------------------------
+// -------------------------------create Cetagory--------------------------------------
 
 function createRow() {
     for (let i = 0; i < stocks.length; i++) {
@@ -130,7 +158,7 @@ function createRow() {
         let sell_progrese = document.createElement('td');
         let imge = document.createElement('img')
         imge.classList.add('image')
-        imge.src = '../image/edit.png';
+        imge.src = '../image/edit_button.png';
         imge.addEventListener('click', addCard)
 
         let images = document.createElement('img');
@@ -145,7 +173,6 @@ function createRow() {
         sell_progrese.appendChild(images)
         tr.appendChild(id);
         tr.appendChild(nameproduct);
-
         tr.appendChild(sell_progrese);
         tbody.appendChild(tr);
     }
@@ -158,7 +185,5 @@ function createRow() {
 
     }
 }
-
 getStorage();
 createRow()
-// localStorage.clear();
