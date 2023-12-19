@@ -48,8 +48,8 @@ for(let i = 0; i <instoks.length; i++){
       CreateRow(instoks[i])  
     }
     count += 1
-    someprice += instoks[i].price
-;
+    someprice += instoks[i].price;
+
 }
 
 Income.lastElementChild.lastElementChild.textContent = someprice+"$"

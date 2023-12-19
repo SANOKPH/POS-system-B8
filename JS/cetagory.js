@@ -8,6 +8,11 @@ let inputName = document.querySelector('#name');
 let inputDescript = document.querySelector('#descript');
 let title = document.querySelector('.title h2');
 let stocks = [];
+//function savearray object to local storage================
+function saveStorage() {
+    localStorage.setItem('stocks', JSON.stringify(stocks));
+}
+//function getarray object from localStorage================
 
 // ================================save localStorage=========================
 
@@ -37,6 +42,8 @@ button.onclick = () => {
     hidecard(action);
     showcard(card);
 }
+
+// =================Table//====================================
 function addCard() {
     card.style.display = 'block'
     action.style.display = 'none'
@@ -47,6 +54,9 @@ function deletecard() {
     action.style.display = 'block'
 }
 function createCard() {
+    // let tr = document.querySelectorAll(')
+
+    console.log(input.value)
     for (let stock of stocks){
         if(inputName.value == stock.name){
             return alert ('You have already entered this category')
@@ -97,18 +107,19 @@ function deleteProduct(e) {
 
 // ------------------edit Cetagory-----------------------------------------
 
-function edit_category(event){
+function edit_category(event) {
     addCard()
     let index = event.target.closest('tr').dataset.index
     let tr = event.target.closest('tr')
     let saves = document.querySelector('.save button')
     title.textContent = " UPDATE GATEGORY"
-    saves.textContent =  'UPDATE'
+    saves.textContent = 'UPDATE'
     saves.removeAttribute('onclick')
-    saves.setAttribute('onclick',`updateCategory(${index})`)
+    saves.setAttribute('onclick', `updateCategory(${index})`)
     inputName.value = tr.children[1].textContent
     inputDescript.value = stocks[index].DSP
 }
+
 
 function updateCategory(index){
     for (let stock of stocks){
@@ -123,7 +134,7 @@ function updateCategory(index){
     let savesa = document.querySelector('.save button')
     savesa.removeAttribute('onclick')
     savesa.textContent = 'CREATE'
-    savesa.setAttribute('onclick','createCard()')
+    savesa.setAttribute('onclick', 'createCard()')
     title.textContent = "CREAT CATEGORY"
     names.textContent = inputName.value
     inputName.value = ""
@@ -137,7 +148,7 @@ function updateCategory(index){
 // -------------------------------create Cetagory--------------------------------------
 
 function createRow() {
-    for (let i=0; i<stocks.length; i++) {
+    for (let i = 0; i < stocks.length; i++) {
         let tr = document.createElement('tr');
         tr.dataset.index = i;
         let id = document.createElement('td');
@@ -154,9 +165,10 @@ function createRow() {
         images.classList.add('image')
         images.src = '../image/trash.png';
         images.addEventListener('click', deleteProduct)
-        console.log(images);
+
+
         imge.addEventListener('click', edit_category)
-        console.log(images);
+
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
         tr.appendChild(id);
@@ -164,7 +176,14 @@ function createRow() {
         tr.appendChild(sell_progrese);
         tbody.appendChild(tr);
     }
+    for (let tr of tbody.children) {
+        // console.log(tr.children[1].textContent);
+        if (tr.children[1].textContent == inputName) {
+            // tr.children[1].textContent = 'hello';
+            console.log(1);
+        }
 
+    }
 }
 getStorage();
 createRow()
