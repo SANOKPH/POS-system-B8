@@ -52,7 +52,7 @@ for(let i = 0; i <instoks.length; i++){
 
 }
 
-Income.lastElementChild.lastElementChild.textContent = someprice+"$"
+// Income.lastElementChild.lastElementChild.textContent = someprice+"$"
 show_result.firstElementChild.textContent = count
 
 
