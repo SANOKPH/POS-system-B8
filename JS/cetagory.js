@@ -41,8 +41,6 @@ button.onclick = () => {
     hidecard(action);
     showcard(card);
 }
-
-// =================Table//====================================
 function addCard() {
     card.style.display = 'block'
     action.style.display = 'none'
@@ -53,9 +51,8 @@ function deletecard() {
     action.style.display = 'block'
 }
 function createCard() {
-    // let tr = document.querySelectorAll(')
+    // console.log(stocks[0].name);
 
-    console.log(input.value)
     for (let stock of stocks){
         if(inputName.value == stock.name){
             return alert ('You have already entered this category')
@@ -163,10 +160,12 @@ function createRow() {
         images.classList.add('image')
         images.src = '../image/trash.png';
         images.addEventListener('click', deleteProduct)
+        // console.log(images);
 
 
         imge.addEventListener('click', edit_category)
 
+        // console.log(images);
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
         tr.appendChild(id);
@@ -185,3 +184,4 @@ function createRow() {
 }
 getStorage();
 createRow()
+// localStorage.clear()
