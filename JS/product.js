@@ -100,6 +100,7 @@ function createROW() {
         let btnEdit = document.createElement('button')
         btnEdit.classList.add('edit')
         btnEdit.textContent = 'edit'
+        btnEdit.addEventListener('click', editProduct)
 
         tdId.textContent = product.id
         tdName.textContent = product.name
@@ -240,7 +241,7 @@ function add_product() {
         btnEdit.textContent = "edit";
         btnEdit.addEventListener("click", editProduct);
         tdId.textContent = newProduct.id;
-        console.log(id);
+        // console.log(id);
         tdName.textContent = newProduct.name;
         tr.setAttribute("data-id", newProduct.id);
         tbody.appendChild(tr);
@@ -285,7 +286,7 @@ function createBtn() {
     products.push(newProduct);
     saveProducts();
     loadProducts();
-    createROW();
+    // createROW();
     updatePrice();
     title.value = "";
     category.value = "";
@@ -309,7 +310,70 @@ create.addEventListener("click", (e) => {
 
     hide(dom_dialog);
 });
+
+
+function editProduct(event) {
+    
+    let tr = event.target.closest('tr');
+    let id = tr.dataset.id;
+    let product = products.find((p) => p.id === parseInt(id));
+
+    // Update the product details in the form
+    
+    let title = document.querySelector("#title");
+    let category = document.querySelector("#category");
+    category.style.display = 'none'
+    let quantity = document.querySelector("#quantity");
+    let price = document.querySelector("#price");
+    let dom_dialog= document.querySelector("#product-dialog");
+    let createBtn = document.querySelector(".create_Btn");
+
+    title.value = product.name;
+    category.value = product.categroy;
+    quantity.value = product.quantity;
+    price.value = product.price;
+
+    // Show the dialog and update the create button
+   
+    show(dom_dialog);
+    createBtn.textContent = "Update";
+    createBtn.removeAttribute('onclick')
+    createBtn.setAttribute('onclick', `updateProduct(${id})`)
+    console.log(createBtn);
+    // createBtn.removeEventListener("click", createBtn);
+    // createBtn.addEventListener("click", () => updateProduct(id));
+    // add_product()
+}
+function getStorage() {
+    if (JSON.parse(localStorage.getItem('products')) != null) {
+        products = JSON.parse(localStorage.getItem('products'));
+    }
+}
+
+function updateProduct(id) {
+    let product = products.find((p) => p.id === parseInt(id));
+
+    // Get the updated product details from the form
+    let title = document.querySelector("#title").value;
+    let category = document.querySelector("#category").value;
+    let quantity = document.querySelector("#quantity").value;
+    let price = document.querySelector("#price").value;
+
+    // Update the product in the array
+    products[id].name = title;
+    products[id].categroy = category;
+    products[id].quantity = quantity;
+    products[id].price = price;
+    saveProducts();
+    // createROW()
+    getStorage() 
+    // Hide the dialog
+    let dom_dialog = document.querySelector("#product-dialog");
+    hide(dom_dialog);
+}
+// getStorage()
 loadProducts()
 createROW();
+// localStorage.clear()
 
 
