@@ -153,12 +153,12 @@ function createRow() {
         let sell_progrese = document.createElement('td');
         let imge = document.createElement('img')
         imge.classList.add('image')
-        imge.src = '../image/edit_button.png';
+        imge.src = '../Image/edit_button.png';
         imge.addEventListener('click', addCard)
 
         let images = document.createElement('img');
         images.classList.add('image')
-        images.src = '../image/trash.png';
+        images.src = '../Image/trash.png';
         images.addEventListener('click', deleteProduct)
         // console.log(images);
 
