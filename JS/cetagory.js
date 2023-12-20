@@ -12,7 +12,6 @@ let stocks = [];
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
-//function getarray object from localStorage================
 
 // ================================save localStorage=========================
 
@@ -42,8 +41,6 @@ button.onclick = () => {
     hidecard(action);
     showcard(card);
 }
-
-// =================Table//====================================
 function addCard() {
     card.style.display = 'block'
     action.style.display = 'none'
@@ -54,9 +51,8 @@ function deletecard() {
     action.style.display = 'block'
 }
 function createCard() {
-    // let tr = document.querySelectorAll(')
+    // console.log(stocks[0].name);
 
-    console.log(input.value)
     for (let stock of stocks){
         if(inputName.value == stock.name){
             return alert ('You have already entered this category')
@@ -105,7 +101,7 @@ function deleteProduct(e) {
     saveStorage();
 }
 
-// ------------------edit Cetagory-----------------------------------------
+//====================edit Cetagory==========================
 
 function edit_category(event) {
     addCard()
@@ -119,7 +115,6 @@ function edit_category(event) {
     inputName.value = tr.children[1].textContent
     inputDescript.value = stocks[index].DSP
 }
-
 
 function updateCategory(index){
     for (let stock of stocks){
@@ -165,10 +160,12 @@ function createRow() {
         images.classList.add('image')
         images.src = '../image/trash.png';
         images.addEventListener('click', deleteProduct)
+        // console.log(images);
 
 
         imge.addEventListener('click', edit_category)
 
+        // console.log(images);
         sell_progrese.appendChild(imge)
         sell_progrese.appendChild(images)
         tr.appendChild(id);
@@ -187,3 +184,4 @@ function createRow() {
 }
 getStorage();
 createRow()
+// localStorage.clear()
