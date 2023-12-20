@@ -121,7 +121,7 @@ th {
 
 td,
 th {
-  border: 0.1px solid #bebcbc;
+  border: 0.1px solid black;
   padding: 5px;
   color: rgb(7, 7, 7);
 }

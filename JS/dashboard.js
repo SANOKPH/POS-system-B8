@@ -36,7 +36,7 @@ function CreateRow(stock){
     tr.appendChild(product);
     tr.appendChild(Cgy);
     tr.appendChild(pri);
-    tr.appendChild(AMT);
+    // tr.appendChild(AMT);
     tbody.appendChild(tr)
 }
 

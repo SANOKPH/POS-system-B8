@@ -311,5 +311,5 @@ create.addEventListener("click", (e) => {
 });
 loadProducts()
 createROW();
-
+// localStorage.clear()
 
