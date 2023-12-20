@@ -36,25 +36,23 @@ let products = [
 
     },
 ];
-
 const tbody = document.querySelector('tbody')
-console.log(tbody);
-
 function saveProducts() {
     localStorage.setItem('products', JSON.stringify(products));
 }
 function loadProducts() {
     let loadProducts = JSON.parse(localStorage.getItem('products'));
-    console.log(loadProducts);
+
     if (loadProducts != null) {
         products = loadProducts
     }
     else {
         saveProducts()
     }
+
 }
 function updatePrice(e) {
-    let id = e.target.parentElement.dataset.id;
+    let id = e.target.parentElement.parentElement.dataset.id; 
 
     for (const object of products) {
         if (id == object.id) {
@@ -62,8 +60,8 @@ function updatePrice(e) {
             object.total = (e.target.value * object.price.replace("$", "")) + "$";
         }
     }
-    saveProducts()
-    createROW()
+    saveProducts();
+    createROW();
 
 }
 function createROW() {
@@ -71,7 +69,7 @@ function createROW() {
     for (const tr of document.querySelectorAll('tbody tr')) {
         tr.remove();
     }
-
+    let index = 0;
     for (const product of products) {
         let tr = document.createElement('tr')
         let tdId = document.createElement('td');
@@ -84,7 +82,7 @@ function createROW() {
         let tdAction = document.createElement('td')
         let btnDelete = document.createElement('button')
         tdCategory.textContent = product.categroy
-        
+
         tdqauntity.dataset.id = product.id;
 
         qtyInput.setAttribute('type', 'number');
@@ -100,7 +98,8 @@ function createROW() {
         let btnEdit = document.createElement('button')
         btnEdit.classList.add('edit')
         btnEdit.textContent = 'edit'
-        btnEdit.addEventListener('click', editProduct)
+        btnEdit.dataset.index= index;
+        btnEdit.addEventListener("click", editProduct);
 
         tdId.textContent = product.id
         tdName.textContent = product.name
@@ -117,30 +116,33 @@ function createROW() {
         tr.appendChild(tdAction)
         tdAction.appendChild(btnEdit)
         tdAction.appendChild(btnDelete)
+
+        index ++
     }
 
 }
 let quantities = document.querySelectorAll('input');
 function getQuantities(event) {
-    let qty = event.target.value
-    let price = event.target.parentElement.nextElementSibling.textContent.replace('$', "");
-    event.target.parentElement.nextElementSibling.nextElementSibling.textContent = event.target.value * price + '$'
+    let qty = event.target.value;
+    let price = event.target.parentElement.nextElementSibling.textContent.replace('$', '');
+    event.target.parentElement.nextElementSibling.nextElementSibling.textContent = (qty * parseInt(price)) + '$';
 }
 for (let qty of quantities) {
     qty.addEventListener('change', getQuantities);
 
 }
+// localStorage.clear()
+//===================================
 function deleteProduct(event) {
+    let id = event.target.closest('tr').dataset.id;
+    products = products.filter(product => product.id != id);
 
-    let id = event.target.closest('tr').firstElementChild.textContent;
-
-    products.splice(id - 1, 1);
-    console.log(products);
-    if (confirm("do you want to delete this product?")) {
+    if (confirm("Do you want to delete this product?")) {
         saveProducts();
-        createROW()
+        createROW();
     }
 }
+// localStorage.clear()
 // ======================search product=================================
 function searchProduct() {
     let search = searchDataInput.value.toLowerCase();
@@ -157,6 +159,14 @@ function searchProduct() {
         saveProducts();
     }
 
+}
+const category = document.querySelector("#category");
+let save;
+save = JSON.parse(localStorage.getItem('stocks'))
+for (let value of save) {
+    let option = document.createElement('option')
+    option.textContent = value.name
+    category.appendChild(option)
 }
 let searchDataInput = document.querySelector(".input-search");
 searchDataInput.addEventListener("keyup", searchProduct);
@@ -182,11 +192,10 @@ shortProduct.addEventListener("change", searchCategory);
 // let short_product = document.querySelector('#short-product')
 let saveCTYs;
 saveCTYs = JSON.parse(localStorage.getItem('stocks'))
-console.log(saveCTYs);
-for(let save of saveCTYs){
+for (let value of saveCTYs) {
     let option = document.createElement('option')
-    option.textContent = save.name
-    shortProduct.appendChild (option)
+    option.textContent = value.name
+    shortProduct.appendChild(option)
 }
 // =======================add product================
 
@@ -211,6 +220,7 @@ onCancel.addEventListener("click", (e) => {
 });
 
 function add_product() {
+    console.log(1);
     let dom_dialog = document.querySelector("#product-dialog");
     show(dom_dialog);
     for (const newProduct of newProducts) {
@@ -241,7 +251,7 @@ function add_product() {
         btnEdit.textContent = "edit";
         btnEdit.addEventListener("click", editProduct);
         tdId.textContent = newProduct.id;
-        // console.log(id);
+        console.log(id);
         tdName.textContent = newProduct.name;
         tr.setAttribute("data-id", newProduct.id);
         tbody.appendChild(tr);
@@ -259,11 +269,11 @@ function add_product() {
     createBtn()
 }
 
- 
+// _________________________________________________________________________________
 function createBtn() {
-
+    console.log(1);
     const title = document.querySelector("#title");
-    
+
     const quantity = document.querySelector("#quantity");
     const price = document.querySelector("#price");
     const total = document.querySelector("#total");
@@ -273,8 +283,6 @@ function createBtn() {
     } else {
         uniqueId = products[products.length - 1].id + 1;
     }
-
-
     let newProduct = {
         id: uniqueId,
         name: title.value,
@@ -286,7 +294,7 @@ function createBtn() {
     products.push(newProduct);
     saveProducts();
     loadProducts();
-    // createROW();
+    createROW();
     updatePrice();
     title.value = "";
     category.value = "";
@@ -296,84 +304,67 @@ function createBtn() {
     let dom_dialog = document.querySelector("#product-dialog");
     hide(dom_dialog);
 }
-let option_category= document.querySelector("#category")
-saveCTYs = JSON.parse(localStorage.getItem('stocks'))
-for(let save of saveCTYs){
-    let option = document.createElement('option')
-    option.textContent = save.name
-    option_category.appendChild (option)
-}
 const create = document.querySelector(".create_Btn");
-create.addEventListener("click", createBtn);
+
 create.addEventListener("click", (e) => {
     let dom_dialog = document.querySelector("#product-dialog");
 
     hide(dom_dialog);
 });
-
-
 function editProduct(event) {
-    
     let tr = event.target.closest('tr');
     let id = tr.dataset.id;
-    let product = products.find((p) => p.id === parseInt(id));
-
-    // Update the product details in the form
-    
+    let index = event.target.dataset.index;
+    console.log(index);
     let title = document.querySelector("#title");
     let category = document.querySelector("#category");
-    category.style.display = 'none'
     let quantity = document.querySelector("#quantity");
     let price = document.querySelector("#price");
-    let dom_dialog= document.querySelector("#product-dialog");
-    let createBtn = document.querySelector(".create_Btn");
-
-    title.value = product.name;
-    category.value = product.categroy;
-    quantity.value = product.quantity;
-    price.value = product.price;
-
-    // Show the dialog and update the create button
-   
-    show(dom_dialog);
-    createBtn.textContent = "Update";
-    createBtn.removeAttribute('onclick')
-    createBtn.setAttribute('onclick', `updateProduct(${id})`)
-    console.log(createBtn);
-    // createBtn.removeEventListener("click", createBtn);
-    // createBtn.addEventListener("click", () => updateProduct(id));
-    // add_product()
-}
-function getStorage() {
-    if (JSON.parse(localStorage.getItem('products')) != null) {
-        products = JSON.parse(localStorage.getItem('products'));
-    }
-}
-
-function updateProduct(id) {
-    let product = products.find((p) => p.id === parseInt(id));
-
-    // Get the updated product details from the form
-    let title = document.querySelector("#title").value;
-    let category = document.querySelector("#category").value;
-    let quantity = document.querySelector("#quantity").value;
-    let price = document.querySelector("#price").value;
-
-    // Update the product in the array
-    products[id].name = title;
-    products[id].categroy = category;
-    products[id].quantity = quantity;
-    products[id].price = price;
-    saveProducts();
-    // createROW()
-    getStorage() 
-    // Hide the dialog
     let dom_dialog = document.querySelector("#product-dialog");
-    hide(dom_dialog);
+    let create_Btn = document.querySelector(".create_Btn");
+    title.value = products[index].name;
+    category.value = products[index].categroy;
+    quantity.value = products[index].quantity;
+    price.value = products[index].price;
+    show(dom_dialog);
+    create_Btn.textContent = "Update";
+    create_Btn.removeAttribute('onclick');
+    
+    create_Btn.setAttribute('onclick', `updateProduct(${index})`)
+    console.log(create_Btn);
 }
-// getStorage()
+
+function updateProduct(index) {
+    let create_Btn = document.querySelector(".create_Btn");
+
+    let tbodys = document.querySelector('tbody');
+    tbodys.children[index].firstElementChild.nextElementSibling.textContent = title.value
+    tbodys.children[index].firstElementChild.nextElementSibling.nextElementSibling.textContent = category.value 
+    tbodys.children[index].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.textContent = price.value 
+    products[index].price = price.value
+    let titles = document.querySelector("#title");
+    console.log();
+    products[index].categroy = category.value
+    products[index].name = titles.value
+    create_Btn.removeAttribute('onclick')
+    create_Btn.textContent ="Create"
+    create_Btn.setAttribute('onclick', 'createBtn()')
+    console.log(create_Btn);
+    saveProducts()
+    titles.value = ""
+    price.value = ''
+
+
+
+
+
+
+    
+}
+
+// localStorage.clear()
+
 loadProducts()
 createROW();
-// localStorage.clear()
 
 
