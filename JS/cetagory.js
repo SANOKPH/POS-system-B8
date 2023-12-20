@@ -141,7 +141,7 @@ function updateCategory(index){
     inputDescript.value = ''
     deletecard()
     saveStorage()
-    createRow()
+    // createRow()
     location.reload()
 }
 
