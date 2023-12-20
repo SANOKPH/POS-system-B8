@@ -12,7 +12,6 @@ let stocks = [];
 function saveStorage() {
     localStorage.setItem('stocks', JSON.stringify(stocks));
 }
-//function getarray object from localStorage================
 
 // ================================save localStorage=========================
 
@@ -105,7 +104,7 @@ function deleteProduct(e) {
     saveStorage();
 }
 
-// ------------------edit Cetagory-----------------------------------------
+//====================edit Cetagory==========================
 
 function edit_category(event) {
     addCard()
@@ -119,7 +118,6 @@ function edit_category(event) {
     inputName.value = tr.children[1].textContent
     inputDescript.value = stocks[index].DSP
 }
-
 
 function updateCategory(index){
     for (let stock of stocks){
