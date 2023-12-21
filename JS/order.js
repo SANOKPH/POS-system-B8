@@ -11,7 +11,7 @@ function somee() {
         plus += parseInt(d)
     }
     console.log(plus);
-    total.textContent = "Tota: " + plus + "$"
+    total.textContent = "Total: " + plus + "$"
 
 }
 // somee()
